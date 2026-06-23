@@ -17,18 +17,19 @@ func main() {
 }
 
 func Server() {
-	http.HandleFunc("/status", statusHandler)
-	http.HandleFunc("/echo", EchoChamberHandler)
-	http.HandleFunc("/form", FormDecoderHandler)
-	http.HandleFunc("/headers", HeaderDetectiveHandler)
-	http.HandleFunc("/method-inspector", MethodInspectorHandler)
+	mainMux := http.NewServeMux()
 
 	apiMux := http.NewServeMux()
 
-	apiMux.HandleFunc("/v1/ping", pingHandler)
-	apiMux.HandleFunc("/v1/greet", greetHandler)
+	mainMux.HandleFunc("/status", statusHandler)
+	mainMux.HandleFunc("/echo", EchoChamberHandler)
+	mainMux.HandleFunc("/form", FormDecoderHandler)
+	mainMux.HandleFunc("/headers", HeaderDetectiveHandler)
+	mainMux.HandleFunc("/method-inspector", MethodInspectorHandler)
 
-	mainMux := http.NewServeMux()
+	apiMux.HandleFunc("/v1/ping", SubHandler)
+	apiMux.HandleFunc("/v1/greet", SubHandler)
+
 	mainMux.Handle("/api/", http.StripPrefix("/api", apiMux))
 	log.Fatal(http.ListenAndServe(":8080", mainMux))
 }
