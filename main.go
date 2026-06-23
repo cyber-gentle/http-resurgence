@@ -26,6 +26,7 @@ func Server() {
 	mainMux.HandleFunc("/form", FormDecoderHandler)
 	mainMux.HandleFunc("/headers", HeaderDetectiveHandler)
 	mainMux.HandleFunc("/method-inspector", MethodInspectorHandler)
+	mainMux.HandleFunc("/render", RenderHandler)
 
 	apiMux.HandleFunc("/v1/ping", SubHandler)
 	apiMux.HandleFunc("/v1/greet", SubHandler)
