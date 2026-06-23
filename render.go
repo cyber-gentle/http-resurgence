@@ -35,3 +35,4 @@ func RenderHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "template execution failed", http.StatusInternalServerError)
 	}
 }
+
