@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"net/http"
 	"text/template"
 )
@@ -25,7 +24,7 @@ type PageData struct {
 func RenderHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("page").Parse(tmplStr))
 	title := r.URL.Query().Get("title")
-	body, _ := io.ReadAll(r.Body)
+	body := r.URL.Query().Get("body")
 
 	if title == "" || string(body) == "" {
 		http.Error(w, "title and body are required", http.StatusBadRequest)
